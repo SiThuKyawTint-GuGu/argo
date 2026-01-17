@@ -1,0 +1,20 @@
+{{- if .Values.grafana.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  labels:
+    {{- include "monitoring.labels" . | nindent 4 }}
+    app.kubernetes.io/component: grafana
+spec:
+  type: {{ .Values.grafana.service.type }}
+  ports:
+    - port: {{ .Values.grafana.service.port }}
+      targetPort: {{ .Values.grafana.service.port }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "monitoring.selectorLabels" . | nindent 4 }}
+    app: grafana
+    app.kubernetes.io/component: grafana
+{{- end }}

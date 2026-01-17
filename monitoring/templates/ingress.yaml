@@ -1,0 +1,47 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: {{ .Release.Namespace | default "default" }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  rules:
+    - http:
+        paths:
+          # Frontend
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.frontendServiceName }}
+                port:
+                  number: {{ .Values.ingress.frontendServicePort }}
+          # Backend API
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.backendServiceName }}
+                port:
+                  number: {{ .Values.ingress.backendServicePort }}
+          # Prometheus
+          - path: /prometheus
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus
+                port:
+                  number: {{ .Values.prometheus.service.port }}
+          # Grafana
+          - path: /grafana
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: {{ .Values.grafana.service.port }}
+{{- end }}

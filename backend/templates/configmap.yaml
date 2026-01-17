@@ -1,0 +1,12 @@
+{{- if .Values.configmap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "fullstack.fullname" . }}-config
+  labels:
+    {{- include "fullstack.labels" . | nindent 4 }}
+data:
+{{- range $key, $value := .Values.configmap.data }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backend
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/YOUR_USERNAME/YOUR_REPO.git
+    targetRevision: main
+    path: fullstack-app/backend
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: backend
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
