@@ -111,7 +111,7 @@ affinity: {}
 configmap:
   enabled: true
   data:
-    DB_HOST: mysql
+    DB_HOST: mysql.database.svc.cluster.local
 
 secret:
   enabled: true
