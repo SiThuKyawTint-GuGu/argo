@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: backend
+  name: monitoring
   namespace: argocd
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/YOUR_USERNAME/YOUR_REPO.git
+    repoURL: https://github.com/SiThuKyawTint-GuGu/argo.git
     targetRevision: main
-    path: fullstack-app/backend
+    path: monitoring
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: backend
+    namespace: monitoring
 
   syncPolicy:
     automated:

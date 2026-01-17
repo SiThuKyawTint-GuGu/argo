@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mysql
+  name: frontend
   namespace: argocd
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/YOUR_USERNAME/YOUR_REPO.git
+    repoURL: https://github.com/SiThuKyawTint-GuGu/argo.git
     targetRevision: main
-    path: fullstack-app/mysql
+    path: frontend
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: database
+    namespace: frontend
 
   syncPolicy:
     automated:
