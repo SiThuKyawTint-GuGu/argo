@@ -112,6 +112,8 @@ configmap:
   enabled: true
   data:
     DB_HOST: mysql.database.svc.cluster.local
+    DB_USER: root        
+    DB_NAME: app_db
 
 secret:
   enabled: true
